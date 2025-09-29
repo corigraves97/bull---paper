@@ -5,8 +5,8 @@ const app = express();
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const cors = require('cors')
-const authRouter = require('./controllers/auth');
-const usersRouter = require('./controllers/users');
+const authRouter = require('./USER/controllers/auth');
+const usersRouter = require('./USER/controllers/users');
 
 if(!global.fetch) {
     global.fetch = (...args) =>
