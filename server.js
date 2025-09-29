@@ -5,6 +5,8 @@ const app = express();
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const cors = require('cors')
+const authRouter = require('./controllers/auth');
+const usersRouter = require('./controllers/users');
 
 if(!global.fetch) {
     global.fetch = (...args) =>
@@ -27,6 +29,8 @@ mongoose.connection.on('connected', () => {
 app.use(express.json());
 app.use(logger('dev'));
 app.use(cors())
+app.use('/users', usersRouter);  
+app.use('/auth', authRouter);
 
 async function fetchAlphaVantage(url) {
     const response = await fetch(url)
