@@ -28,6 +28,7 @@ app.use(express.json());
 app.use(logger('dev'));
 app.use(cors())
 
+
 async function fetchAlphaVantage(url) {
     const response = await fetch(url)
     if(!response.ok) {
