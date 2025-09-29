@@ -5,7 +5,7 @@ const router = express.Router();
 const User = require('../models/user');
 const verifyToken = require('../middleware/verify-token');
 
-///note this links to middleware which we may or may not want to use--assuming we probably do though 
+///added middleware 
 
 router.get("/",verifyToken, async (req, res)=>{
   try{
