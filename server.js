@@ -29,11 +29,11 @@ app.use(logger('dev'));
 app.use(cors())
 
 async function fetchAlphaVantage(url) {
-    const resp = await fetch(url)
-    if(!resp.ok) {
-        throw new Error(`HTTP error! status: ${resp.status}`)
+    const response = await fetch(url)
+    if(!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
     }
-    return resp.json()
+    return response.json()
 }
 
 app.get('/search', async (req, res) => {
