@@ -32,6 +32,7 @@ app.use(cors())
 app.use('/users', usersRouter);  
 app.use('/auth', authRouter);
 
+
 async function fetchAlphaVantage(url) {
     const response = await fetch(url)
     if(!response.ok) {

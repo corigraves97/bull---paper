@@ -2,8 +2,9 @@
 
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-const verifyToken = require('../../middleware/verify-token')
+const User = require('../models/user');
+const verifyToken = require('../middleware/verify-token');
+
 ///added middleware 
 
 router.get("/",verifyToken, async (req, res)=>{
