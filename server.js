@@ -7,6 +7,8 @@ const logger = require('morgan');
 const cors = require('cors')
 const authRouter = require('./USER/controllers/auth');
 const usersRouter = require('./USER/controllers/users');
+const apiNewsRouter = require('./apiClient/routes/news');
+
 
 if(!global.fetch) {
     global.fetch = (...args) =>
@@ -31,6 +33,7 @@ app.use(logger('dev'));
 app.use(cors())
 app.use('/users', usersRouter);  
 app.use('/auth', authRouter);
+app.use('/api', apiNewsRouter);
 
 
 async function fetchAlphaVantage(url) {
@@ -41,49 +44,7 @@ async function fetchAlphaVantage(url) {
     return response.json()
 }
 
-app.get('/search', async (req, res) => {
-    try{
-        const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=${apiKey[0]}`
-        const data = await fetchAlphaVantage(url)
-        res.json(data)
-    } catch (err) {
-        res.status(500).json({ error: err.message})
-    }
-})
 
-app.get('/shares', async (req, res) => {
-  try {
-    const url = `https://www.alphavantage.co/query?function=SHARES_OUTSTANDING&symbol=MSFT&apikey=${apiKey[1]}`;
-    const data = await fetchAlphaVantage(url);
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-})
-
-app.get('/news', async (req, res) => {
-  try {
-    const url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=${apiKey[2]}`;
-    const data = await fetchAlphaVantage(url);
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-})
-
-app.get('/overview', async (req, res) => {
-  try {
-    const url = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=${apiKey[3]}`;
-    const data = await fetchAlphaVantage(url);
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-})
-
-app.get('/', (req, res) => {
-  res.send('Working');
-})
 
 
 
