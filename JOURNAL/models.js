@@ -134,7 +134,7 @@ const journalSchema = new Schema(
       strategyTag: String,
     },
     notes: { type: String },
-    marketSnapshot: marketSnapshotSchema,
+    marketSnapshot: [marketSnapshotSchema],
   },
   { timestamps: true }
 );
