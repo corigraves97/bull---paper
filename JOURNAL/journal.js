@@ -91,7 +91,7 @@ const overviewSchema = new Schema(
   },
   { _id: false }
 );
-
+//api based
 const marketSnapshotSchema = new Schema(
   {
     symbol: { type: String, required: true, uppercase: true },
@@ -131,7 +131,7 @@ async function fetchMarketSnapshot(symbol, { keywords } = {}) {
     overviewData,
   });
 }
-
+///all user 
 const positionSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User', index: true, required: true },

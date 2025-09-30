@@ -21,7 +21,7 @@ router.get("/", verifyToken, async (req, res) => {
 router.get("/:journalId", verifyToken, async (req, res) => {
   try {
     const journal = await Journal.findById(req.params.journalId).populate("journal");
-    res.status(200).json(hoot);
+    res.status(200).json(journal);
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
