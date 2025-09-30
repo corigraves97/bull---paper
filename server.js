@@ -9,6 +9,8 @@ const cors = require('cors')
 const authRouter = require('./USER/controllers/auth');
 const usersRouter = require('./USER/controllers/users');
 const apiNewsRouter = require('./apiClient/routes/news');
+const overView = require('./apiClient/routes/overView');
+const sharesRouter = require('./apiClient/routes/shares');
 // const journalRouter = require('./JOURNAL/controllers/journal')
 const journalRouter = require('./JOURNAL/controllers/journalList');
 
@@ -18,12 +20,7 @@ if(!global.fetch) {
         import('node-fetch').then(({ default: fetch }) => fetch(...args))
 }
 
-const apiKey = [
-    process.env.ALPHAVANTAGE_KEY0,
-    process.env.ALPHAVANTAGE_KEY1,
-    process.env.ALPHAVANTAGE_KEY2,
-    process.env.ALPHAVANTAGE_KEY3,
-]
+
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -37,6 +34,9 @@ app.use(cors())
 app.use('/users', usersRouter);  
 app.use('/auth', authRouter);
 app.use('/api', apiNewsRouter);
+app.use('/api', overView);
+app.use('/api', sharesRouter);
+
 app.use('/journal', journalRouter)
 
 

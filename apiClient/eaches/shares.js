@@ -10,25 +10,26 @@ const apiKey = [
     process.env.ALPHAVANTAGE_KEY3,
 ]
 
-async function newsAlpha(tickers) {
-  const apiKeyNews = apiKey[2];
+// postman testing URL
+// http://localhost:3000/api/shares?tickers=AAPL
 
-  if (!apiKeyNews) {
-    throw new Error('Missing Alpha Vantage news API key (ALPHAVANTAGE_KEY2).');
+
+async function sharesAvailable(tickers) {
+
+  const apiKeyShares = apiKey[1];
+    // shares available is hard coded to use the 2nd key in the array
+  if (!apiKeyShares) {
+    throw new Error('Missing Alpha Vantage shares API key (ALPHAVANTAGE_KEY1).');
   }
 
   const symbol = (tickers && tickers.trim()) || 'AAPL';
   // apple is default if no symbol provided
-  // to provide a symbol in the request, use /news?tickers=MSFT,TSLA
-
 
   const response = await axios.get(BASE_URL, {
     params: {
-      function: 'NEWS_SENTIMENT',
-      tickers: symbol,
-      apikey: apiKeyNews,
-      sort: 'LATEST',
-      limit: 5
+      function: 'SHARES_OUTSTANDING',
+      Symbol: symbol,
+      apikey: apiKeyShares,
     }
   });
 
@@ -40,5 +41,5 @@ async function newsAlpha(tickers) {
 }
 
 module.exports = {
-  newsAlpha
+    sharesAvailable
 };      

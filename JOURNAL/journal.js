@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-
+const sharesAvailable = require('../apiClient/eaches/shares.js');
+const overView = require('../apiClient/eaches/overView.js');
+const newsAlpha = require('../apiClient/eaches/news.js');
 
 const { Schema } = mongoose;
 
@@ -111,10 +113,7 @@ async function fetchMarketSnapshot(symbol, { keywords } = {}) {
   const searchTerm = keywords || uppercaseSymbol;
 
   const [searchData, sharesData, newsData, overviewData] = await Promise.all([
-    searchSymbol(searchTerm),
-    getSharesOutstanding(uppercaseSymbol),
-    getNewsSentiment(uppercaseSymbol),
-    getOverview(uppercaseSymbol),
+   sharesAvailable(uppercaseSymbol),
   ]);
 
   return buildMarketSnapshot(uppercaseSymbol, {
@@ -199,6 +198,29 @@ journalSchema.methods.refreshMarketSnapshot = async function refreshMarketSnapsh
   return this;
 };
 
+// exporting these files separately in case we want to use them individually later
+// when we do, we can import them like this:
+// const { Position, MarketSnapshot } = require('./journal');
+// const { SharesDetail } = require('./journal');
+// const { Overview } = require('./journal');
+// const { NewsArticle } = require('./journal');
+// const { TickerSentiment } = require('./journal');
+
+// then we can use them like this:
+// const position = new Position({ ... });
+// const snapshot = new MarketSnapshot({ ... });
+// const sharesDetail = new SharesDetail({ ... });
+// const overview = new Overview({ ... });
+// const newsArticle = new NewsArticle({ ... });
+// const tickerSentiment = new TickerSentiment({ ... });
+
+// this way we can keep our code organized and modular
+// and we can easily import only the models we need in different parts of our application
+// without having to import the entire journal.js file
+// which can be large and unwieldy
+// especially as we add more models and functionality to it over time
+// so this approach helps keep our codebase clean and maintainable
+//
 const Journal = mongoose.model("Journal", journalSchema);
 const MarketSnapshot = mongoose.model("MarketSnapshot", marketSnapshotSchema);
 const SharesDetail = mongoose.model("SharesDetail", sharesDetailSchema);

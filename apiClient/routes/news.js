@@ -5,9 +5,9 @@ router.get('/', (req, res) => {
   res.send('News API is working');
 });
 
-router.get('/quote', async (req, res) => {
+router.get('/news', async (req, res) => {
   const { tickers } = req.query;
-  console.log('Received request for /quote with tickers:', tickers);
+  console.log('Received request for /news with tickers:', tickers);
   try {
     const quote = await newsAlpha.newsAlpha(tickers);
     res.json(quote);
