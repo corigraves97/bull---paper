@@ -1,8 +1,7 @@
 
+curl http://localhost:3000/api/overview?tickers=IBM
+curl http://localhost:3000/api/shares?tickers=AAPL  
 
-
-
-node -e "require('dotenv').config(); const fn = require('./apiClient/eaches/overView').fetchOverview; (async ()=>{ try{ const r = await fn('IBM'); console.log('OK', Object.keys(r.overview||{}).slice(0,6)); }catch(e){ console.error('ERR', e && e.message); process.exitCode=2 } })()"
 
 
 When to use a curl test
@@ -68,3 +67,18 @@ Alpha Vantage will often return a JSON with a "Note" field when you are rate-lim
 
 If you see a Note like "Thank you for using Alpha Vantage...please visit ...", you were rate-limited.
 
+
+
+
+// req.body example for saving shares detail
+// req.params example for deleting shares detail
+// req.query example for fetching shares detail with query parameters
+
+
+// Example req.params for deleting shares detail
+// DELETE /api/shares/:id
+// where :id is the ID of the shares detail entry to delete
+
+// Example req.query for fetching shares detail with query parameters
+// GET /api/shares/savedShares?symbol=AAPL&date=2023-10-01
+// where symbol and date are optional query parameters to filter results

@@ -1,7 +1,7 @@
 // controllers/journalList.js
 const express= require("express")
 const verifyToken = require("../../middleware/verify-token.js")
-const { Journal } = require("../journal.js");//import model 
+const { Journal } = require("../models.js");//import model 
 const router= express.Router()
 const axios = require('axios');
 // const { createCollection } = require("../../USER/models/User.js");
