@@ -21,14 +21,14 @@ async function sharesAvailable(tickers) {
   if (!apiKeyShares) {
     throw new Error('Missing Alpha Vantage shares API key (ALPHAVANTAGE_KEY1).');
   }
-
-  const symbol = (tickers && tickers.trim()) || 'AAPL';
+  
+  const ticker = (tickers && tickers.trim()) || 'AAPL';
   // apple is default if no symbol provided
 
   const response = await axios.get(BASE_URL, {
     params: {
       function: 'SHARES_OUTSTANDING',
-      Symbol: symbol,
+      symbol: ticker,
       apikey: apiKeyShares,
     }
   });
@@ -39,6 +39,7 @@ async function sharesAvailable(tickers) {
 
   return response.data;
 }
+
 
 module.exports = {
     sharesAvailable
