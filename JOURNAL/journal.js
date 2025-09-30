@@ -1,12 +1,5 @@
-
-
 const mongoose = require('mongoose');
-const {
-  searchSymbol,
-  getSharesOutstanding,
-  getNewsSentiment,
-  getOverview,
-} = require('./alphaVantageClient');
+
 
 const { Schema } = mongoose;
 
@@ -91,7 +84,7 @@ const overviewSchema = new Schema(
   },
   { _id: false }
 );
-//api based
+//api
 const marketSnapshotSchema = new Schema(
   {
     symbol: { type: String, required: true, uppercase: true },
@@ -206,12 +199,18 @@ journalSchema.methods.refreshMarketSnapshot = async function refreshMarketSnapsh
   return this;
 };
 
-module.exports = mongoose.model[
-  ('Journal', journalSchema),
-  ('MarketSnapshot', marketSnapshotSchema),
-  ('SharesDetail', sharesDetailSchema),
-  ('Overview', overviewSchema),
-  ('NewsArticle', newsArticleSchema),
-  ('TickerSentiment', tickerSentimentSchema)
-];
+const Journal = mongoose.model("Journal", journalSchema);
+const MarketSnapshot = mongoose.model("MarketSnapshot", marketSnapshotSchema);
+const SharesDetail = mongoose.model("SharesDetail", sharesDetailSchema);
+const Overview = mongoose.model("Overview", overviewSchema);
+const NewsArticle = mongoose.model("NewsArticle", newsArticleSchema);
+const TickerSentiment = mongoose.model("TickerSentiment", tickerSentimentSchema);
 
+module.exports = {
+  Journal,
+  MarketSnapshot,
+  SharesDetail,
+  Overview,
+  NewsArticle,
+  TickerSentiment,
+};
