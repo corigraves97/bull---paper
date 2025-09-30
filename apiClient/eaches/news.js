@@ -18,6 +18,9 @@ async function newsAlpha(tickers) {
   }
 
   const symbol = (tickers && tickers.trim()) || 'AAPL';
+  // apple is default if no symbol provided
+  // to provide a symbol in the request, use /news?tickers=MSFT,TSLA
+
 
   const response = await axios.get(BASE_URL, {
     params: {

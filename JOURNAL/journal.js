@@ -4,7 +4,7 @@ const {
   getSharesOutstanding,
   getNewsSentiment,
   getOverview,
-} = require('./alphaVantageClient');
+} = require('./alphaVantageClient.js');
 
 const { Schema } = mongoose;
 
@@ -212,3 +212,58 @@ module.exports = mongoose.model[
   ('NewsArticle', newsArticleSchema),
   ('TickerSentiment', tickerSentimentSchema)
 ];
+
+/*const journalEntrySchema = new Schema({
+  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  ticker: { type: String, required: true },
+  companyName: String,
+  entryDate: { type: Date, default: Date.now },
+  entryText: String,
+  newsArticles: [newsArticleSchema],
+  sharesOutstandingHistory: [sharesDetailSchema],
+  overview: {
+    name: String,
+    description: String,
+    exchange: String,
+    industry: String,
+    sector: String,
+    country: String,
+    fullTimeEmployees: Number,
+    fiscalYearEnd: String,
+    latestQuarter: Date,
+    marketCapitalization: Number,
+    EBITDA: Number,
+    PERatio: Number,
+    PEGRatio: Number,
+    bookValue: Number,
+    dividendPerShare: Number,
+    dividendYield: Number,
+    EPS: Number,
+    revenuePerShareTTM: Number,   
+    profitMargin: Number,
+    operatingMarginTTM: Number,
+    returnOnAssetsTTM: Number,
+    returnOnEquityTTM: Number,
+    revenueTTM: Number,
+    grossProfitTTM: Number,
+    dilutedEPSTTM: Number,      
+    quarterlyEarningsGrowthYOY: Number,
+    quarterlyRevenueGrowthYOY: Number,
+    analystTargetPrice: Number,
+    trailingPE: Number,
+    forwardPE: Number,
+    priceToSalesRatioTTM: Number,
+    priceToBookRatio: Number,
+    EVToRevenue: Number,
+    EVToEBITDA: Number,
+    beta: Number,
+    fiftyTwoWeekHigh: Number,
+    fiftyTwoWeekLow: Number,
+    fiftyDayMovingAverage: Number,
+    twoHundredDayMovingAverage: Number,
+    sharesOutstanding: Number,
+    dividendDate: Date,
+    exDividendDate: Date,
+  },
+});
+*/

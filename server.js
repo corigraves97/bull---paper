@@ -8,7 +8,7 @@ const cors = require('cors')
 const authRouter = require('./USER/controllers/auth');
 const usersRouter = require('./USER/controllers/users');
 const apiNewsRouter = require('./apiClient/routes/news');
-
+const overView = require('./apiClient/routes/overView');
 
 if(!global.fetch) {
     global.fetch = (...args) =>
@@ -34,6 +34,8 @@ app.use(cors())
 app.use('/users', usersRouter);  
 app.use('/auth', authRouter);
 app.use('/api', apiNewsRouter);
+app.use('/api', overView);
+
 
 
 async function fetchAlphaVantage(url) {
