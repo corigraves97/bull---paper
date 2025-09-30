@@ -5,9 +5,11 @@ const app = express();
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const cors = require('cors')
+
 const authRouter = require('./USER/controllers/auth');
 const usersRouter = require('./USER/controllers/users');
 const apiNewsRouter = require('./apiClient/routes/news');
+const journalRouter = require('./JOURNAL/controllers/journal')
 
 
 if(!global.fetch) {
@@ -34,6 +36,7 @@ app.use(cors())
 app.use('/users', usersRouter);  
 app.use('/auth', authRouter);
 app.use('/api', apiNewsRouter);
+app.use('/journal', journalRouter)
 
 
 async function fetchAlphaVantage(url) {
