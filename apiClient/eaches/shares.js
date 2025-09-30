@@ -15,6 +15,7 @@ const apiKey = [
 
 
 async function sharesAvailable(tickers) {
+
   const apiKeyShares = apiKey[1];
     // shares available is hard coded to use the 2nd key in the array
   if (!apiKeyShares) {
@@ -29,21 +30,6 @@ async function sharesAvailable(tickers) {
       function: 'SHARES_OUTSTANDING',
       Symbol: symbol,
       apikey: apiKeyShares,
- /*Required: function
-
-The function of your choice. In this case, function=SHARES_OUTSTANDING
-
-Required: symbol
-
-T symbol of the ticker of your choice. For example: symbol=MSFT.
-
-ptional: datatype
-
-default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the options data in JSON format; csv returns the data as a CSV (comma separated value) file.
-
-❚ Required: apikey
-*/
-
     }
   });
 

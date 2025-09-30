@@ -11,30 +11,34 @@ const apiKey = [
  
 async function overView(tickers) {
 
-const apiKeyShares = apiKey[3]
+    const apiKeyOver = apiKey[3]
 
-  if (!apiKeyShares) {
-    throw new Error('Missing Alpha Vantage overview API key (ALPHAVANTAGE_KEY3).');
-  }
+      if (!apiKeyOver) {
+        throw new Error('Missing Alpha Vantage overview API key (ALPHAVANTAGE_KEY3).');
+      }
 
-  const symbol = (tickers && tickers.trim()) || 'AAPL';
-  // apple is default if no symbol provided
-  
+      const symbol = (tickers && tickers.trim()) || 'AAPL';
+      // apple is default if no symbol provided
+      // postman testing URL
+      // http://localhost:3000/api/overview?tickers=AAPL
+      // tickers because that's what the front end sends
+      // 
+      
 
 
-  const response = await axios.get(url, {
-    params: {
-      function: 'OVERVIEW',
-      symbol: symbol,
-      apikey: apiKeyShares,
-    }
-  });
+      const response = await axios.get(url, {
+        params: {
+          function: 'OVERVIEW',
+          symbol: symbol,
+          apikey: apiKeyOver,
+        }
+      });
 
-  if (!response.data || response.data.error ) {
-    throw new Error('Failed to fetch overview data');
-  }
+      if (!response.data || response.data.error ) {
+        throw new Error('Failed to fetch overview data');
+      }
 
-  return response.data;
+      return response.data;
 }
 
 module.exports = { overView }
