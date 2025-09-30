@@ -106,8 +106,8 @@ const marketSnapshotSchema = new Schema(
     newsArticles: [newsArticleSchema],
     sharesOutstanding: Number,
     institutionalOwnership: Number,
-    sharesDetail: sharesDetailSchema,
-    overview: overviewSchema,
+    sharesDetail: [sharesDetailSchema],
+    overview: [overviewSchema],
     fetchedAt: { type: Date, default: Date.now },
   },
   { _id: false }
