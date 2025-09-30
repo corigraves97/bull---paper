@@ -8,10 +8,10 @@ const axios = require('axios');
 
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const hoots = await Journal.find({})
+    const journal = await Journal.find({})
       .populate("journal")
       .sort({ createdAt: "desc" });
-    res.status(200).json(journals);
+    res.status(200).json(journal);
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
