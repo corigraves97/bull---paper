@@ -1,23 +1,19 @@
 const axios = require('axios');
 require ('dotenv').config();
-
-
-const apiKey = [ process.env.ALPHAVANTAGE_KEY3, 
-  // overview
-  ];
-
 const url = `https://www.alphavantage.co/query`;
 
-
+const apiKey = [
+    process.env.ALPHAVANTAGE_KEY0,
+    process.env.ALPHAVANTAGE_KEY1,
+    process.env.ALPHAVANTAGE_KEY2,
+    process.env.ALPHAVANTAGE_KEY3,
+];
  
 async function overView(tickers) {
-    // for postman testing, use the following URL
-    // http://localhost:3000/api/overview?tickers=AAPL
-    // include this in the body of the request
-    // { "tickers": "AAPL" }
-  const apiKeyOverview = apiKey[3];
 
-  if (!apiKeyOverview) {
+const apiKeyShares = apiKey[3]
+
+  if (!apiKeyShares) {
     throw new Error('Missing Alpha Vantage overview API key (ALPHAVANTAGE_KEY3).');
   }
 
@@ -29,8 +25,8 @@ async function overView(tickers) {
   const response = await axios.get(url, {
     params: {
       function: 'OVERVIEW',
-      tickers: symbol,
-      apikey: apiKeyOverview,
+      symbol: symbol,
+      apikey: apiKeyShares,
     }
   });
 

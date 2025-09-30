@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
-const {
-  searchSymbol,
-  getSharesOutstanding,
-  getNewsSentiment,
-  getOverview,
-} = require('./alphaVantageClient.js');
+const sharesAvailable = require('../apiClient/eaches/shares.js');
+const overView = require('../apiClient/eaches/overView.js');
+const newsAlpha = require('../apiClient/eaches/news.js');
 
 const { Schema } = mongoose;
 
@@ -116,10 +113,7 @@ async function fetchMarketSnapshot(symbol, { keywords } = {}) {
   const searchTerm = keywords || uppercaseSymbol;
 
   const [searchData, sharesData, newsData, overviewData] = await Promise.all([
-    searchSymbol(searchTerm),
-    getSharesOutstanding(uppercaseSymbol),
-    getNewsSentiment(uppercaseSymbol),
-    getOverview(uppercaseSymbol),
+   sharesAvailable(uppercaseSymbol),
   ]);
 
   return buildMarketSnapshot(uppercaseSymbol, {
@@ -213,57 +207,26 @@ module.exports = mongoose.model[
   ('TickerSentiment', tickerSentimentSchema)
 ];
 
-/*const journalEntrySchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  ticker: { type: String, required: true },
-  companyName: String,
-  entryDate: { type: Date, default: Date.now },
-  entryText: String,
-  newsArticles: [newsArticleSchema],
-  sharesOutstandingHistory: [sharesDetailSchema],
-  overview: {
-    name: String,
-    description: String,
-    exchange: String,
-    industry: String,
-    sector: String,
-    country: String,
-    fullTimeEmployees: Number,
-    fiscalYearEnd: String,
-    latestQuarter: Date,
-    marketCapitalization: Number,
-    EBITDA: Number,
-    PERatio: Number,
-    PEGRatio: Number,
-    bookValue: Number,
-    dividendPerShare: Number,
-    dividendYield: Number,
-    EPS: Number,
-    revenuePerShareTTM: Number,   
-    profitMargin: Number,
-    operatingMarginTTM: Number,
-    returnOnAssetsTTM: Number,
-    returnOnEquityTTM: Number,
-    revenueTTM: Number,
-    grossProfitTTM: Number,
-    dilutedEPSTTM: Number,      
-    quarterlyEarningsGrowthYOY: Number,
-    quarterlyRevenueGrowthYOY: Number,
-    analystTargetPrice: Number,
-    trailingPE: Number,
-    forwardPE: Number,
-    priceToSalesRatioTTM: Number,
-    priceToBookRatio: Number,
-    EVToRevenue: Number,
-    EVToEBITDA: Number,
-    beta: Number,
-    fiftyTwoWeekHigh: Number,
-    fiftyTwoWeekLow: Number,
-    fiftyDayMovingAverage: Number,
-    twoHundredDayMovingAverage: Number,
-    sharesOutstanding: Number,
-    dividendDate: Date,
-    exDividendDate: Date,
-  },
-});
-*/
+// exporting these files separately in case we want to use them individually later
+// when we do, we can import them like this:
+// const { Position, MarketSnapshot } = require('./journal');
+// const { SharesDetail } = require('./journal');
+// const { Overview } = require('./journal');
+// const { NewsArticle } = require('./journal');
+// const { TickerSentiment } = require('./journal');
+
+// then we can use them like this:
+// const position = new Position({ ... });
+// const snapshot = new MarketSnapshot({ ... });
+// const sharesDetail = new SharesDetail({ ... });
+// const overview = new Overview({ ... });
+// const newsArticle = new NewsArticle({ ... });
+// const tickerSentiment = new TickerSentiment({ ... });
+
+// this way we can keep our code organized and modular
+// and we can easily import only the models we need in different parts of our application
+// without having to import the entire journal.js file
+// which can be large and unwieldy
+// especially as we add more models and functionality to it over time
+// so this approach helps keep our codebase clean and maintainable
+//

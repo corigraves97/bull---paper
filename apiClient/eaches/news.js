@@ -27,6 +27,8 @@ async function newsAlpha(tickers) {
       function: 'NEWS_SENTIMENT',
       tickers: symbol,
       apikey: apiKeyNews,
+      sort: 'LATEST',
+      limit: 5
     }
   });
 
