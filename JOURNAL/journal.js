@@ -1,3 +1,5 @@
+
+
 const mongoose = require('mongoose');
 const {
   searchSymbol,
@@ -212,3 +214,4 @@ module.exports = mongoose.model[
   ('NewsArticle', newsArticleSchema),
   ('TickerSentiment', tickerSentimentSchema)
 ];
+
