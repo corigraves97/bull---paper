@@ -99,8 +99,8 @@ const marketSnapshotSchema = new Schema(
     newsArticles: [newsArticleSchema],
     sharesOutstanding: Number,
     institutionalOwnership: Number,
-    sharesDetail: sharesDetailSchema,
-    overview: overviewSchema,
+    sharesDetail: [sharesDetailSchema],
+    overview: [overviewSchema],
     fetchedAt: { type: Date, default: Date.now },
   },
   { _id: false }
@@ -125,7 +125,7 @@ async function fetchMarketSnapshot(symbol, { keywords } = {}) {
   });
 }
 ///all user 
-const positionSchema = new Schema(
+const journalSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User', index: true, required: true },
     symbol: { type: String, required: true, uppercase: true, index: true },
@@ -159,12 +159,12 @@ const positionSchema = new Schema(
   { timestamps: true }
 );
 
-positionSchema.index({ userId: 1, symbol: 1 }, { unique: true });
-positionSchema.index({ userId: 1, timeOfDay: -1 });
+journalSchema.index({ userId: 1, symbol: 1 }, { unique: true });
+journalSchema.index({ userId: 1, timeOfDay: -1 });
 
-positionSchema.statics.fetchMarketSnapshot = fetchMarketSnapshot;
+journalSchema.statics.fetchMarketSnapshot = fetchMarketSnapshot;
 
-positionSchema.statics.createWithMarketData = async function createWithMarketData(
+journalSchema.statics.createWithMarketData = async function createWithMarketData(
   payload,
   options = {}
 ) {
@@ -186,7 +186,7 @@ positionSchema.statics.createWithMarketData = async function createWithMarketDat
   );
 };
 
-positionSchema.methods.refreshMarketSnapshot = async function refreshMarketSnapshot(
+journalSchema.methods.refreshMarketSnapshot = async function refreshMarketSnapshot(
   { keywords, save = true } = {}
 ) {
   const snapshot = await fetchMarketSnapshot(this.symbol, { keywords });
@@ -200,7 +200,7 @@ positionSchema.methods.refreshMarketSnapshot = async function refreshMarketSnaps
 };
 
 module.exports = mongoose.model[
-  ('Position', positionSchema),
+  ('Journal', journalSchema),
   ('MarketSnapshot', marketSnapshotSchema),
   ('SharesDetail', sharesDetailSchema),
   ('Overview', overviewSchema),
