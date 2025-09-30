@@ -39,6 +39,12 @@ const saveSharesDetailAndJournal = async (req, res) => {
         ...sharesDetailData,
         marketSnapshot: marketSnapshotData
     });
+/* trace where marketSnapshot comes from in your controller and explain the flow. From
+the code in shares.js, the server never builds that snapshot itself; it simply pulls marketSnapshotData off req.body:
+
+That means whatever client calls saveSharesDetailAndJournal (or postShares, which expects req.body.marketSnapshot)
+ must already assemble the snapshot—typically by calling your external Alpha Vantage helpers (/api/overview, /api/news, /api/shares)  and bundling the results. The API just stores what it receives; it doesn’t hit Alpha Vantage or populate fields itself.
+*/
 
     try {
         const savedShare = await newShare.save();
