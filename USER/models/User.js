@@ -10,9 +10,9 @@ const userSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  positions: [{ 
+  journal: [{ 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: "Position" 
+    ref: "Journal" 
   }]
 }, { timestamps: true });
 

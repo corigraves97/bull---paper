@@ -9,7 +9,8 @@ const cors = require('cors')
 const authRouter = require('./USER/controllers/auth');
 const usersRouter = require('./USER/controllers/users');
 const apiNewsRouter = require('./apiClient/routes/news');
-const journalRouter = require('./JOURNAL/controllers/journal')
+// const journalRouter = require('./JOURNAL/controllers/journal')
+const journalRouter = require('./JOURNAL/controllers/journalList');
 
 
 if(!global.fetch) {
