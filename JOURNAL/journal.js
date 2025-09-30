@@ -1,12 +1,5 @@
-
-
 const mongoose = require('mongoose');
-const {
-  searchSymbol,
-  getSharesOutstanding,
-  getNewsSentiment,
-  getOverview,
-} = require('./alphaVantageClient');
+
 
 const { Schema } = mongoose;
 
@@ -91,7 +84,7 @@ const overviewSchema = new Schema(
   },
   { _id: false }
 );
-//api based
+//api
 const marketSnapshotSchema = new Schema(
   {
     symbol: { type: String, required: true, uppercase: true },
