@@ -29,7 +29,7 @@ router.get("/:journalId", verifyToken, async (req, res) => {
 });
 
 ///create  journal 
-router.post("/", verifyToken, async (req, res) => {
+router.post("/new", verifyToken, async (req, res) => {
   try {
     const journal = await Journal.create({
       ...req.body, ///gt all info
@@ -42,7 +42,7 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 //update 
-router.put("/:journalId", verifyToken, async (req, res) => {
+router.put("/:journalId/edit", verifyToken, async (req, res) => {
   try {
     // Find the journal:
     const journal = await Journal.findById(req.params.journalId);
