@@ -1,8 +1,4 @@
 const mongoose = require('mongoose');
-const sharesAvailable = require('../apiClient/eaches/shares.js');
-const overView = require('../apiClient/eaches/overView.js');
-const newsAlpha = require('../apiClient/eaches/news.js');
-
 const { Schema } = mongoose;
 
 
@@ -108,22 +104,7 @@ const marketSnapshotSchema = new Schema(
   { _id: false }
 );
 
-async function fetchMarketSnapshot(symbol, { keywords } = {}) {
-  const uppercaseSymbol = symbol.toUpperCase();
-  const searchTerm = keywords || uppercaseSymbol;
 
-  const [searchData, sharesData, newsData, overviewData] = await Promise.all([
-   sharesAvailable(uppercaseSymbol),
-  ]);
-
-  return buildMarketSnapshot(uppercaseSymbol, {
-    searchData,
-    sharesData,
-    newsData,
-    overviewData,
-  });
-}
-///all user 
 const journalSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User', index: true, required: true },
@@ -157,54 +138,6 @@ const journalSchema = new Schema(
   },
   { timestamps: true }
 );
-
-journalSchema.index({ userId: 1, symbol: 1 }, { unique: true });
-journalSchema.index({ userId: 1, timeOfDay: -1 });
-
-journalSchema.statics.fetchMarketSnapshot = fetchMarketSnapshot;
-
-journalSchema.statics.createWithMarketData = async function createWithMarketData(
-  payload,
-  options = {}
-) {
-  const { symbol, keywords, ...rest } = payload;
-
-  if (!symbol) {
-    throw new Error('createWithMarketData requires a `symbol` field.');
-  }
-
-  const snapshot = await fetchMarketSnapshot(symbol, { keywords });
-
-  return this.create(
-    {
-      ...rest,
-      symbol: symbol.toUpperCase(),
-      marketSnapshot: snapshot,
-    },
-    options
-  );
-};
-
-journalSchema.methods.refreshMarketSnapshot = async function refreshMarketSnapshot(
-  { keywords, save = true } = {}
-) {
-  const snapshot = await fetchMarketSnapshot(this.symbol, { keywords });
-  this.marketSnapshot = snapshot;
-
-  if (save) {
-    await this.save();
-  }
-
-  return this;
-};
-
-// exporting these files separately in case we want to use them individually later
-// when we do, we can import them like this:
-// const { Position, MarketSnapshot } = require('./journal');
-// const { SharesDetail } = require('./journal');
-// const { Overview } = require('./journal');
-// const { NewsArticle } = require('./journal');
-// const { TickerSentiment } = require('./journal');
 
 // then we can use them like this:
 // const position = new Position({ ... });
