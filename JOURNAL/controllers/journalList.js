@@ -52,7 +52,7 @@ router.put("/:journalId", verifyToken, async (req, res) => {
       return res.status(403).send("You're not allowed to do that!");
     }
 
-    // Update hoot:
+    // Update journal:
     const updatedJournal = await Journal.findByIdAndUpdate(
       req.params.journalId,
       req.body,
