@@ -86,7 +86,7 @@ const overviewSchema = new Schema(
   },
   { _id: false }
 );
-
+//api
 const marketSnapshotSchema = new Schema(
   {
     symbol: { type: String, required: true, uppercase: true },
@@ -101,8 +101,8 @@ const marketSnapshotSchema = new Schema(
     newsArticles: [newsArticleSchema],
     sharesOutstanding: Number,
     institutionalOwnership: Number,
-    sharesDetail: sharesDetailSchema,
-    overview: overviewSchema,
+    sharesDetail: [sharesDetailSchema],
+    overview: [overviewSchema],
     fetchedAt: { type: Date, default: Date.now },
   },
   { _id: false }
@@ -123,8 +123,8 @@ async function fetchMarketSnapshot(symbol, { keywords } = {}) {
     overviewData,
   });
 }
-
-const positionSchema = new Schema(
+///all user 
+const journalSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User', index: true, required: true },
     symbol: { type: String, required: true, uppercase: true, index: true },
@@ -158,12 +158,12 @@ const positionSchema = new Schema(
   { timestamps: true }
 );
 
-positionSchema.index({ userId: 1, symbol: 1 }, { unique: true });
-positionSchema.index({ userId: 1, timeOfDay: -1 });
+journalSchema.index({ userId: 1, symbol: 1 }, { unique: true });
+journalSchema.index({ userId: 1, timeOfDay: -1 });
 
-positionSchema.statics.fetchMarketSnapshot = fetchMarketSnapshot;
+journalSchema.statics.fetchMarketSnapshot = fetchMarketSnapshot;
 
-positionSchema.statics.createWithMarketData = async function createWithMarketData(
+journalSchema.statics.createWithMarketData = async function createWithMarketData(
   payload,
   options = {}
 ) {
@@ -185,7 +185,7 @@ positionSchema.statics.createWithMarketData = async function createWithMarketDat
   );
 };
 
-positionSchema.methods.refreshMarketSnapshot = async function refreshMarketSnapshot(
+journalSchema.methods.refreshMarketSnapshot = async function refreshMarketSnapshot(
   { keywords, save = true } = {}
 ) {
   const snapshot = await fetchMarketSnapshot(this.symbol, { keywords });
@@ -197,15 +197,6 @@ positionSchema.methods.refreshMarketSnapshot = async function refreshMarketSnaps
 
   return this;
 };
-
-module.exports = mongoose.model[
-  ('Position', positionSchema),
-  ('MarketSnapshot', marketSnapshotSchema),
-  ('SharesDetail', sharesDetailSchema),
-  ('Overview', overviewSchema),
-  ('NewsArticle', newsArticleSchema),
-  ('TickerSentiment', tickerSentimentSchema)
-];
 
 // exporting these files separately in case we want to use them individually later
 // when we do, we can import them like this:
@@ -230,3 +221,18 @@ module.exports = mongoose.model[
 // especially as we add more models and functionality to it over time
 // so this approach helps keep our codebase clean and maintainable
 //
+const Journal = mongoose.model("Journal", journalSchema);
+const MarketSnapshot = mongoose.model("MarketSnapshot", marketSnapshotSchema);
+const SharesDetail = mongoose.model("SharesDetail", sharesDetailSchema);
+const Overview = mongoose.model("Overview", overviewSchema);
+const NewsArticle = mongoose.model("NewsArticle", newsArticleSchema);
+const TickerSentiment = mongoose.model("TickerSentiment", tickerSentimentSchema);
+
+module.exports = {
+  Journal,
+  MarketSnapshot,
+  SharesDetail,
+  Overview,
+  NewsArticle,
+  TickerSentiment,
+};
