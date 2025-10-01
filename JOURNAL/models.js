@@ -132,10 +132,13 @@ const journalSchema = new Schema(
     executedDay: { type: Date, required: true,},
     meta: String,
     notes: String,
-    marketSnapshot: [marketSnapshotSchema]
+    marketSnapshot: [marketSnapshotSchema] // Controller currently saves a single snapshot object; wrap in array or switch to singular schema as needed.
   },
   { timestamps: true }
 );
+
+// TODO: Reintroduce the dropped indexes (userId/symbol/timeOfDay/executedDay) if query performance becomes an issue.
+// TODO: Volume enum values use the "1m-5m" style; ensure the client payload matches this exact formatting.
 
 // then we can use them like this:
 // const position = new Position({ ... });

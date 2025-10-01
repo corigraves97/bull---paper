@@ -30,7 +30,7 @@ router.delete('/shares/:id', sharesController.deleteShares);
 // Route to get all saved shares details  
 router.get('/savedShares', sharesController.getSavedShares);
 // Route to delete a shares detail entry by ID
-router.delete('/shares/:id', sharesController.deleteShares);
+router.delete('/shares/:id', sharesController.deleteShares); // Duplicate of the DELETE route above; safe but redundant.
 
 
 // Route to save both shares detail and a journal entry
