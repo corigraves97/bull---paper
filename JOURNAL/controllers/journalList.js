@@ -9,9 +9,13 @@ const router = express.Router();
 //index
 router.get("/", verifyToken, async (req, res) => {
   try {
+<<<<<<< HEAD
     const journal = await Journal.find({})
       .populate("userId")
       .sort({ createdAt: "desc" });
+=======
+    const journal = await Journal.find({ user: req.user._id })
+>>>>>>> dda992644a5352fe750f2c70be99f41c89714fb0
     res.status(200).json(journal);
   } catch (err) {
     res.status(500).json({ err: err.message });
