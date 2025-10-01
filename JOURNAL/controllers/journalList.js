@@ -11,7 +11,7 @@ const axios = require('axios');
 //index
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const journal = await Journal.find({})
+    const journal = await Journal.find({ user: req.user._id })
     res.status(200).json(journal);
   } catch (err) {
     res.status(500).json({ err: err.message });
