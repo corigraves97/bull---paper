@@ -2,6 +2,7 @@
 const express= require("express")
 const verifyToken = require("../../middleware/verify-token.js")
 const { Journal } = require("../models.js");//import model 
+console.log(Journal)
 const router= express.Router()
 const axios = require('axios');
 // const { createCollection } = require("../../USER/models/User.js");
@@ -24,6 +25,7 @@ router.get("/:journalId", verifyToken, async (req, res) => {
     const journal = await Journal.findById(req.params.journalId).populate("author");
     res.status(200).json(journal);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ err: err.message });
   }
 });
@@ -41,6 +43,7 @@ router.post("/new", verifyToken, async (req, res) => {
     console.log(journal)
     res.status(201).json(journal);
   } catch (err) {
+    console.error("🔥 Error in GET /journal:", err);
     res.status(500).json({ err: err.message });
   }
 });
