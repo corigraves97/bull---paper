@@ -110,7 +110,7 @@ const journalSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     symbol: { type: String, required: true, uppercase: true,},
     side: { type: String, enum: ['long', 'short'], required: true },
-    timeOfDay: { type: Date, required: true, },
+    timeOfDay: { type: String, required: true, },
     shareSize: { type: Number, required: true },
     entry: { type: Number, required: true },
     exit: { type: Number, required: true },
