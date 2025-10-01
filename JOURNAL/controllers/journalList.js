@@ -8,25 +8,19 @@ const router = express.Router();
 
 //index
 router.get("/", verifyToken, async (req, res) => {
-  try {
-<<<<<<< HEAD
-    const journal = await Journal.find({})
-      .populate("userId")
-      .sort({ createdAt: "desc" });
-=======
-    const journal = await Journal.find({ user: req.user._id })
->>>>>>> dda992644a5352fe750f2c70be99f41c89714fb0
-    res.status(200).json(journal);
+  try {  
+    const journalEntries = await Journal.find({ userId: req.user._id });
+    res.status(200).json(journalEntries);
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
-});
+}); 
 
 //show 
 router.get("/:journalId", verifyToken, async (req, res) => {
   try {
-    const journal = await Journal.findById(req.params.journalId).populate("userId");
-    res.status(200).json(journal);
+    const journalEntry = await Journal.findById(req.params.journalId).populate("userId");
+    res.status(200).json(journalEntry);
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
@@ -57,13 +51,13 @@ router.post("/new", verifyToken, async (req, res) => {
     validateOverviewPayload(symbol, overviewData);
     const snapshot = buildSnapshotFromOverview(symbol, overviewData, baseSnapshot);
 
-    const journal = await Journal.create({
+    const createdJournal = await Journal.create({
       ...journalFields,
       symbol,
       userId: req.user._id,
-      marketSnapshot: snapshot ? [snapshot] : [],
+      marketSnapshot: snapshot || null,
     });
-    res.status(201).json(journal);
+    res.status(201).json(createdJournal);
   } catch (err) {
     const statusCode = err.statusCode || 500;
     res.status(statusCode).json({ err: err.message });
@@ -74,16 +68,16 @@ router.post("/new", verifyToken, async (req, res) => {
 router.put("/:journalId/edit", verifyToken, async (req, res) => {
   try {
     // Find the journal:
-    const journal = await Journal.findById(req.params.journalId);
+    const existingJournal = await Journal.findById(req.params.journalId);
 
     // Check permissions--make sure that journal is users:
-    if (!journal.userId.equals(req.user._id)) {
+    if (!existingJournal.userId.equals(req.user._id)) {
       return res.status(403).send("You're not allowed to do that!");
     }
 
     // Update journal:
     const updatePayload = { ...req.body };
-    const symbol = (updatePayload.symbol || journal.symbol || "").toUpperCase();
+    const symbol = (updatePayload.symbol || existingJournal.symbol || "").toUpperCase();
 
     if (!symbol) {
       return res.status(400).json({ error: "Symbol is required to update a journal entry." });
@@ -98,8 +92,12 @@ router.put("/:journalId/edit", verifyToken, async (req, res) => {
 
     const overviewData = await overView(symbol);
     validateOverviewPayload(symbol, overviewData);
+    const existingSnapshot = Array.isArray(existingJournal.marketSnapshot)
+      ? existingJournal.marketSnapshot[0]
+      : existingJournal.marketSnapshot;
+
     const snapshot = buildSnapshotFromOverview(symbol, overviewData, baseSnapshot);
-    updatePayload.marketSnapshot = snapshot ? [snapshot] : [];
+    updatePayload.marketSnapshot = snapshot || existingSnapshot || null;
 
     const updatedJournal = await Journal.findByIdAndUpdate(
       req.params.journalId,
@@ -117,9 +115,9 @@ router.put("/:journalId/edit", verifyToken, async (req, res) => {
 
 router.delete("/:journalId", verifyToken, async (req, res) => {
   try {
-    const journal = await Journal.findById(req.params.journalId);
+    const journalToDelete = await Journal.findById(req.params.journalId);
 
-    if (!journal.userId.equals(req.user._id)) {
+    if (!journalToDelete.userId.equals(req.user._id)) {
       return res.status(403).send("You're not allowed to do that!");
     }
 

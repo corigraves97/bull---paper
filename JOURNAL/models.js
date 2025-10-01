@@ -82,7 +82,9 @@ const overviewSchema = new Schema(
   },
   { _id: false }
 );
+
 //api
+
 const marketSnapshotSchema = new Schema(
   {
     symbol: { type: String, required: true, uppercase: true },
@@ -132,7 +134,7 @@ const journalSchema = new Schema(
     executedDay: { type: Date, required: true,},
     meta: String,
     notes: String,
-    marketSnapshot: [marketSnapshotSchema] // Controller currently saves a single snapshot object; wrap in array or switch to singular schema as needed.
+    marketSnapshot: marketSnapshotSchema,
   },
   { timestamps: true }
 );
