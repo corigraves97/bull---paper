@@ -5,6 +5,7 @@ const { Journal } = require("../models.js");//import model
 console.log(Journal)
 const router= express.Router()
 const axios = require('axios');
+//to push
 // const { createCollection } = require("../../USER/models/User.js");
 
 //index
@@ -31,7 +32,7 @@ router.get("/:journalId", verifyToken, async (req, res) => {
 ///create  journal 
 router.post("/new", verifyToken, async (req, res) => {
   try {
-    const { marketSnapshotData } = req.body
+    const { sharesDetailData, marketSnapshotData } = req.body
     //console.log(req.user._id)
    const journal = await Journal.create({
       ...req.body, ///gt all info
