@@ -107,34 +107,32 @@ const marketSnapshotSchema = new Schema(
 
 const journalSchema = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: 'User', index: true, required: true },
-    symbol: { type: String, required: true, uppercase: true, index: true },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    symbol: { type: String, required: true, uppercase: true,},
     side: { type: String, enum: ['long', 'short'], required: true },
-    timeOfDay: { type: Date, required: true, index: true },
+    timeOfDay: { type: Date, required: true, },
     shareSize: { type: Number, required: true },
     entry: { type: Number, required: true },
     exit: { type: Number, required: true },
     volume: {
       type: String,
       enum: [
-        '1m - 5m',
-        '10m - 20m',
-        '30m - 40m',
-        '50m - 70m',
-        '80m - 100m',
-        '120m - 150m',
-        '160m - 180m',
-        '200+m',
+        '1m-5m',
+        '10m-20m',
+        '30m-40m',
+        '50m-70m',
+        '80m-100m',
+        '120m-150m',
+        '160m-180m',
+        '200m+',
       ],
       required: true,
     },
     fees: { type: Number, default: 0 },
-    executedDay: { type: Date, required: true, index: true },
-    meta: {
-      strategyTag: String,
-    },
-    notes: { type: String },
-    marketSnapshot: [marketSnapshotSchema],
+    executedDay: { type: Date, required: true,},
+    meta: String,
+    notes: String,
+    marketSnapshot: [marketSnapshotSchema]
   },
   { timestamps: true }
 );

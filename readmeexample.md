@@ -113,7 +113,7 @@ This section explains how to correctly correlate and combine data across differe
 ### **1. Basic Stock Research Flow**
 ```bash
 # Step 1: Get company overview
-curl "http://localhost:3000/api/overview?tickers=AAPL"
+curl "httpd"
 
 # Step 2: Get recent news sentiment  
 curl "http://localhost:3000/api/news?tickers=AAPL"

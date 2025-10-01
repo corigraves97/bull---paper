@@ -31,10 +31,14 @@ router.get("/:journalId", verifyToken, async (req, res) => {
 ///create  journal 
 router.post("/new", verifyToken, async (req, res) => {
   try {
-    const journal = await Journal.create({
+    const { marketSnapshotData } = req.body
+    //console.log(req.user._id)
+   const journal = await Journal.create({
       ...req.body, ///gt all info
-      userId: req.user._id,   
-    });
+      userId: req.user._id,
+      marketSnapshotData: marketSnapshotData,   
+    }); 
+    console.log(journal)
     res.status(201).json(journal);
   } catch (err) {
     res.status(500).json({ err: err.message });
