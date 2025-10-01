@@ -11,8 +11,6 @@ const axios = require('axios');
 router.get("/", verifyToken, async (req, res) => {
   try {
     const journal = await Journal.find({})
-      .populate("author")
-      .sort({ createdAt: "desc" });
     res.status(200).json(journal);
   } catch (err) {
     res.status(500).json({ err: err.message });
@@ -22,7 +20,7 @@ router.get("/", verifyToken, async (req, res) => {
 //show 
 router.get("/:journalId", verifyToken, async (req, res) => {
   try {
-    const journal = await Journal.findById(req.params.journalId).populate("author");
+    const journal = await Journal.findById(req.params.journalId)
     res.status(200).json(journal);
   } catch (err) {
     console.error(err);
