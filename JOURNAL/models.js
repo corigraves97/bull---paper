@@ -82,7 +82,9 @@ const overviewSchema = new Schema(
   },
   { _id: false }
 );
+
 //api
+
 const marketSnapshotSchema = new Schema(
   {
     symbol: { type: String, required: true, uppercase: true },
@@ -132,10 +134,13 @@ const journalSchema = new Schema(
     executedDay: { type: Date, required: true,},
     meta: String,
     notes: String,
-    marketSnapshot: [marketSnapshotSchema]
+    marketSnapshot: marketSnapshotSchema,
   },
   { timestamps: true }
 );
+
+// TODO: Reintroduce the dropped indexes (userId/symbol/timeOfDay/executedDay) if query performance becomes an issue.
+// TODO: Volume enum values use the "1m-5m" style; ensure the client payload matches this exact formatting.
 
 // then we can use them like this:
 // const position = new Position({ ... });
