@@ -8,9 +8,6 @@ const router = express.Router();
 
 //index
 router.get("/", verifyToken, async (req, res) => {
-  try {  
-    const journalEntries = await Journal.find({ userId: req.user._id });
-    res.status(200).json(journalEntries);
   try {
     const journal = await Journal.find({ userId: req.user._id })
     res.status(200).json(journal);

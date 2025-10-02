@@ -1,20 +1,29 @@
-# bull---paper
+# BULL & PAPER
 
-##RESTful Routes
+![A digital trading journal](../bull-and-paper-front-end/public//assets/landing%20page.png)
+###### Image: A landing page welcoming users to Bull & Paper prompting them to sign up or sign in.
 
-/welcome ---> this is our home landing page to sign in or sign-up
-/sign-in
-/sign-up
+## Background:
+Bull & Paper came about when a couple of the developers got together and realized we had a shared interest in trading. We decided what would be useful for us is an app that could track the trades we are making daily, returning profit loss data to see where us traders can grow our earnings and which trades to avoid.
 
-users/:userId ---> GET ---> This is the landing page when you login
-users/:userId/journals ----> GET ----> List of My Journals
-users/:userId/journals/new ---> CREATE ----> New journal entry
-users/:userId/journals/:journalId ----> GET ----> View one journal entry
-users/:userId/journals/:journalId/edit ----> UPDATE ----> edit your entry
-users/:userId/journals/:journalId ----> DELETE ----> Just the delete button functionality
+## Getting Started:
 
-users/:userId/community ---> GET ----> Show list of other users
+Sign up or login in and create a new trade entry and see your data populate live. Keep track of your trades by visiting your journal to see them all lined up and update or delete as you see fit. 
 
+## Planning Materials:
 
-users/:userId/stock-history ----> GET ----> view my stock history
+[Trello Board](https://trello.com/b/3k0rOh9s/bull-paper)
+
+[Deployed Site]()
+
+## Attributes:
+
+*_CSS Styling_:
+ [MUI](https://www.muicss.com/),
+ [Libre Baskerville Font](https://fonts.google.com/specimen/Libre+Baskerville), Flexbox, CSS Grid
+
+*_Technologies Used_: Express, EJS, CSS, JS, Mongoose, Morgan, Dotenv, Node.js, bCrypt, React, MUI
+
+*_Planned Future Enhancements_: Provide a community so you can interact with other users and their trades. 
+
 
