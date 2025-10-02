@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const newsAlpha = require('../eaches/news');
+const newsAlpha = require('../controllers/news');
 
 router.get('/', (req, res) => {
   res.send('News API is working');

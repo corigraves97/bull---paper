@@ -67,15 +67,12 @@ router.post("/new", verifyToken, async (req, res) => {
 //update 
 router.put("/:journalId/edit", verifyToken, async (req, res) => {
   try {
-    // Find the journal:
     const existingJournal = await Journal.findById(req.params.journalId);
 
-    // Check permissions--make sure that journal is users:
     if (!existingJournal.userId.equals(req.user._id)) {
       return res.status(403).send("You're not allowed to do that!");
     }
 
-    // Update journal:
     const updatePayload = { ...req.body };
     const symbol = (updatePayload.symbol || existingJournal.symbol || "").toUpperCase();
 
@@ -105,7 +102,7 @@ router.put("/:journalId/edit", verifyToken, async (req, res) => {
       { new: true }
     ).populate("userId");
 
-    // Issue JSON response:
+
     res.status(200).json(updatedJournal);
   } catch (err) {
     const statusCode = err.statusCode || 500;

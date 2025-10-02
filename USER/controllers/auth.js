@@ -1,7 +1,7 @@
 // /controllers/auth.js
 const express = require('express');
 const router = express.Router();
-// Add bcrypt and the user model
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -11,7 +11,7 @@ const User = require('../models/User');
 const saltRounds= 12;
 
 router.post('/sign-up', async (req, res) => {
-    try{///check if username taken
+    try{
         const userInDatabase = await User.findOne({ username: req.body.username })
 
         if (userInDatabase){

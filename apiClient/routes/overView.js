@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const overView = require('../eaches/overView.js');
+const overView = require('../controllers/overView.js');
 
 router.get('/', (req, res) => {
   res.send('Overview API is working');

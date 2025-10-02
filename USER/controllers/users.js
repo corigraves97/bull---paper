@@ -5,7 +5,7 @@ const router = express.Router();
 const User = require('../models/User');
 const verifyToken = require('../../middleware/verify-token');
 
-///added middleware 
+
 
 router.get("/",verifyToken, async (req, res)=>{
   try{
@@ -22,8 +22,7 @@ router.get("/",verifyToken, async (req, res)=>{
 
 router.get('/:userId', verifyToken, async (req, res) => {
   try {
-    // If the user is looking for the details of another user, block the request
-    // Send a 403 status code to indicate that the user is unauthorized
+
     if (req.user._id.toString() !== req.params.userId){
       return res.status(403).json({ err: "Unauthorized"});
     }

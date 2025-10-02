@@ -9,13 +9,12 @@ const { SharesDetail: sharesDetail,
 
 
 
-// Controller functions
-// GET /api/shares
+
 const getRoot = async (req, res) => {
     res.send('Shares API is working');
 };
 
-// GET /api/shares?tickers=AAPL
+
 const getShares = async (req, res) => {
     const { tickers } = req.query;
     console.log('Received request for /shares with tickers:', tickers);
@@ -28,23 +27,18 @@ const getShares = async (req, res) => {
 };
 
 const saveSharesDetailAndJournal = async (req, res) => {
-    // extract shares detail and market snapshot from request body
+
     const { sharesDetailData, marketSnapshotData } = req.body;
 
-    // create new SharesDetail document
+
     const newShare = new sharesDetail(sharesDetailData);
 
-    // create new Journal entry embedding the market snapshot
+
     const newJournalEntry = new Journal({
         ...sharesDetailData,
         marketSnapshot: marketSnapshotData
     });
-/* trace where marketSnapshot comes from in your controller and explain the flow. From
-the code in shares.js, the server never builds that snapshot itself; it simply pulls marketSnapshotData off req.body:
 
-That means whatever client calls saveSharesDetailAndJournal (or postShares, which expects req.body.marketSnapshot)
- must already assemble the snapshot—typically by calling your external Alpha Vantage helpers (/api/overview, /api/news, /api/shares)  and bundling the results. The API just stores what it receives; it doesn’t hit Alpha Vantage or populate fields itself.
-*/
 
     try {
         const savedShare = await newShare.save();
@@ -57,7 +51,7 @@ That means whatever client calls saveSharesDetailAndJournal (or postShares, whic
 
 
 
-// POST /api/shares
+
 const postShares = async (req, res) => {
     console.log('Received POST /api/shares with body:', req.body);
     if (!req.body || Object.keys(req.body).length === 0) {
@@ -71,11 +65,11 @@ const postShares = async (req, res) => {
             return res.status(400).json({ error: `Missing required field: ${field}` });
         }
     }
-    // Create a new SharesDetail document
-    const newShare = new sharesDetail(req.body); // create new SharesDetail document
-    const marketSnapshot = req.body.marketSnapshot; // extract market snapshot data
-    console.log('Market Snapshot:', marketSnapshot); // log market snapshot data
-    // if marketSnapshot is provided in req.body, validate its fields
+
+    const newShare = new sharesDetail(req.body); 
+    const marketSnapshot = req.body.marketSnapshot; 
+    console.log('Market Snapshot:', marketSnapshot); 
+   
     if (marketSnapshot) {
         const marketFields = ['ticker', 'price', 'change', 'percentChange', 'volume', 'marketCap', 'peRatio', 'dividendYield', 'fiftyTwoWeekHigh', 'fiftyTwoWeekLow'];
         for (const field of marketFields) {
@@ -87,7 +81,7 @@ const postShares = async (req, res) => {
         return res.status(400).json({ error: 'marketSnapshot is required in the request body' });
     }
 
-    // Also create a new Journal entry
+
     const newJournalEntry = new Journal({
         timeOfDay: req.body.timeOfDay,
         shareSize: req.body.shareSize,
@@ -98,12 +92,12 @@ const postShares = async (req, res) => {
         executedDay: req.body.executedDay,
         meta: req.body.meta,
         notes: req.body.notes,
-        marketSnapshot: req.body.marketSnapshot // embed the market snapshot
+        marketSnapshot: req.body.marketSnapshot 
     });
 
     try {
         const savedShare = await newShare.save();
-        await newJournalEntry.save(); // 
+        await newJournalEntry.save(); 
         res.status(201).json(savedShare);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -115,7 +109,7 @@ const postShares = async (req, res) => {
 
 
 
-// DELETE /api/shares/:id
+
 const deleteShares = async (req, res) => {
     const { id } = req.params;
     try {
@@ -129,7 +123,7 @@ const deleteShares = async (req, res) => {
     }
 };
 
-// GET /api/savedShares
+
 const getSavedShares = async (req, res) => {
     try {
         const savedShares = await sharesDetail.find().sort({ createdAt: -1 });
@@ -139,7 +133,7 @@ const getSavedShares = async (req, res) => {
     }
 };
 
-// Export controller functions
+
 module.exports = {
     getRoot,
     getShares,
