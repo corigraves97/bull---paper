@@ -24,6 +24,6 @@ Sign up or login in and create a new trade entry and see your data populate live
 
 *_Technologies Used_: Express, EJS, CSS, JS, Mongoose, Morgan, Dotenv, Node.js, bCrypt, React, MUI
 
-*_Planned Future Enhancements_: Provide a community so you can interact with other users and their trades. 
+*_Planned Future Enhancements_: Visualizing your trading performance with charts and graphs. 
 
 
