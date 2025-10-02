@@ -1,4 +1,4 @@
-const sharesAvailable = require('../../apiClient/eaches/shares.js');
+const sharesAvailable = require('../../apiClient/controllers/shares.js');
 const { SharesDetail: sharesDetail,
     Journal: Journal,
     MarketSnapshot: marketSnapshotSchema,

@@ -2,7 +2,7 @@
 const express = require("express");
 const verifyToken = require("../../middleware/verify-token.js");
 const { Journal } = require("../models.js");
-const { overView } = require("../../apiClient/eaches/overView.js");
+const { overView } = require("../../apiClient/controllers/overView.js");
 
 const router = express.Router();
 
