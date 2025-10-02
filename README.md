@@ -1,6 +1,6 @@
 # BULL & PAPER
 
-![A digital trading journal](../bull-and-paper-front-end/public//assets/landing%20page.png)
+![A digital trading journal](./Public/assets/landing%20page.png)
 ###### Image: A landing page welcoming users to Bull & Paper prompting them to sign up or sign in.
 
 ## Background:
@@ -22,7 +22,9 @@ Sign up or login in and create a new trade entry and see your data populate live
  [MUI](https://www.muicss.com/),
  [Libre Baskerville Font](https://fonts.google.com/specimen/Libre+Baskerville), Flexbox, CSS Grid
 
-*_Technologies Used_: Express, EJS, CSS, JS, Mongoose, Morgan, Dotenv, Node.js, bCrypt, React, MUI
+*_Technologies Used_: Express, CSS, JS, Mongoose, Morgan, Dotenv, Node.js, bCrypt, React, MUI, VSCode, Heroku, Netlify, MongoDB, JWT
+
+*_AI_: ChatGPT & VSCode CoPilot was utilize to help debug and create psuedocode.
 
 *_Planned Future Enhancements_: Visualizing your trading performance with charts and graphs. 
 
