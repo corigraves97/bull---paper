@@ -16,7 +16,7 @@ Sign up or login in and create a new trade entry and see your data populate live
 
 [Trello Board](https://trello.com/b/3k0rOh9s/bull-paper)
 
-[Deployed Site]()
+[Deployed Site](https://bull-and-paper.netlify.app/)
 
 ## Attributes:
 
