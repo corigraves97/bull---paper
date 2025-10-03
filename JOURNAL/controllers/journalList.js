@@ -6,7 +6,7 @@ const { overView } = require("../../apiClient/controllers/overView.js");
 
 const router = express.Router();
 
-//index
+
 router.get("/", verifyToken, async (req, res) => {
   try {
     const journal = await Journal.find({ userId: req.user._id })
@@ -16,7 +16,7 @@ router.get("/", verifyToken, async (req, res) => {
   }
 }); 
 
-//show 
+
 router.get("/:journalId", verifyToken, async (req, res) => {
   try {
     const journalEntry = await Journal.findById(req.params.journalId).populate("userId");
@@ -26,7 +26,7 @@ router.get("/:journalId", verifyToken, async (req, res) => {
   }
 });
 
-///create  journal 
+
 router.post("/new", verifyToken, async (req, res) => {
   try {
     const {
@@ -64,7 +64,7 @@ router.post("/new", verifyToken, async (req, res) => {
   }
 });
 
-//update 
+
 router.put("/:journalId/edit", verifyToken, async (req, res) => {
   try {
     const existingJournal = await Journal.findById(req.params.journalId);
@@ -107,7 +107,7 @@ router.put("/:journalId/edit", verifyToken, async (req, res) => {
   } catch (err) {
     const statusCode = err.statusCode || 500;
     res.status(statusCode).json({ err: err.message });
-  } //
+  } 
 });
 
 router.delete("/:journalId", verifyToken, async (req, res) => {

@@ -139,24 +139,7 @@ const journalSchema = new Schema(
   { timestamps: true }
 );
 
-// TODO: Reintroduce the dropped indexes (userId/symbol/timeOfDay/executedDay) if query performance becomes an issue.
-// TODO: Volume enum values use the "1m-5m" style; ensure the client payload matches this exact formatting.
 
-// then we can use them like this:
-// const position = new Position({ ... });
-// const snapshot = new MarketSnapshot({ ... });
-// const sharesDetail = new SharesDetail({ ... });
-// const overview = new Overview({ ... });
-// const newsArticle = new NewsArticle({ ... });
-// const tickerSentiment = new TickerSentiment({ ... });
-
-// this way we can keep our code organized and modular
-// and we can easily import only the models we need in different parts of our application
-// without having to import the entire journal.js file
-// which can be large and unwieldy
-// especially as we add more models and functionality to it over time
-// so this approach helps keep our codebase clean and maintainable
-//
 const Journal = mongoose.model("Journal", journalSchema);
 const MarketSnapshot = mongoose.model("MarketSnapshot", marketSnapshotSchema);
 const SharesDetail = mongoose.model("SharesDetail", sharesDetailSchema);

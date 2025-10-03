@@ -11,7 +11,6 @@ const usersRouter = require('./USER/controllers/users');
 const apiNewsRouter = require('./apiClient/routes/news');
 const overView = require('./apiClient/routes/overView');
 const sharesRouter = require('./apiClient/routes/shares');
-// const journalRouter = require('./JOURNAL/controllers/journal')
 const journalRouter = require('./JOURNAL/controllers/journalList');
 
 
